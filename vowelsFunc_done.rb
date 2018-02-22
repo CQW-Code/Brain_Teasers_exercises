@@ -2,6 +2,8 @@
 
 
 def vowels()
+  puts 'Count all vowels in string'
+  puts 'and output the total number'
 puts 'Enter 1 or more words:'
 string = gets.strip.downcase
 

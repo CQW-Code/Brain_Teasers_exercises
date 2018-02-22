@@ -12,5 +12,7 @@ var dogs =
     breed: "Basenji", 
     age: 5
 };
-
+//note I used terminal --> node objects.js
+console.log("Objects- list properties of an object")
 console.log(music.musician, music.song,music.year)
+console.log(dogs.name, dogs.breed, dogs.age)
