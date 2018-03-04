@@ -8,10 +8,10 @@
 
 require 'to_words'
 
-
+puts 'please enter a number or type quit'
 
   def riddle
-    puts 'please enter a number or type quit'
+    
     @num = gets.strip
     if @num == 'quit'
       exit
@@ -20,15 +20,16 @@ require 'to_words'
     @magicnum = @word.length
 
     
-    if (@num == 4)
+    if (@magicnum == 4)
       puts '4 is the magic number'
-    elsif @magicnum != @num
-      puts '#{@num}  is  #{@magicnum}'
-      puts
-      puts 'please enter another number'
+    elsif (@magicnum != @num)
+      puts @word 
+      puts "#{@num}  is  #{@magicnum}"
       
     end
-    
+    puts
+    puts 'please enter another number'
+    riddle
     end
 
     riddle
