@@ -25,59 +25,61 @@
 #         http://stackoverflow.com/questions/4244611/pass-variables-to-ruby-script-via-command-line (Links to an external site.)
 
  
-# if user enters more than 1 number, it's read as a 
-# string array... if .to_i is used on gets, it only
-# returns the FIRST number entered and kicks the rest off
-# so.. either find a way to convert the numbers entered from
-# string to integer... or forced to ask for a single nbr
-# at a time.
+#Originally tried to have user enter all numbers on one line
+# this caused issues as it became a "string" array and 
+# couldn't get it to convert to integer easily before
+# comparison.  Case statement and if statement same as 
+# before.
 
-def brainy
-puts "Please enter an array of numbers:"
-input = gets
-hilow_arr = []
-
-hilow_arr << input
-
-high = 0
-low = 0
-
+def hilow
 puts
-puts "array"
-puts hilow_arr
+puts "Please enter 10 numbers"
+puts "----------------------------------"
 
-puts "Which do you want to see- Highest (H) or lowest (L)?"
-@choice = gets.strip.upcase
+# changed to finite numbers allowed instead of unknown
+i = 10
+hilo_arr = []
 
+#added loop to collect all 10 numbers and push to array
+while i > 0
+  puts "Enter a number"
+  num = gets.chomp.to_i
+  hilo_arr.push(num)
+  i = i - 1
+end
+#puts hilo_arr
 
-case @choice
-  when "H"
-  hilow_arr.each do |h| 
-    puts h
-     if h > high
-        h == high
-      puts h, high
-      elsif h < high
-        next 
-     end #end loop
-     puts "The highest number is: #{high}"
+  puts "Which do you want to see- Highest (H) or lowest (L)?"
+  @choice = gets.strip.upcase
 
-     end #end if
-    #  brainy figure out a way to exit gracefully
-  # when "L"
-  #   low = 0    
-  #   highlow_arr.each do |num|
-  #   if num < low
-  #       num = low
-  #   elsif num > low
-  #       next 
-  #   end #end loop
-  #   end #end if  
-  #   puts "The lowest number is: #{low}"
-  #   brainy    
-    
-           
+  #here changed to starting comparison from 1st number rather than
+  # 0 as the LOW nbr would always be 0. Also based loop
+  # on length of array as well
+  case @choice
+    when "H"
+      high = hilo_arr[0]
+      i = 0
+      while i < hilo_arr.length
+        if hilo_arr[i] > high
+        high = hilo_arr[i]
+
+      end
+      i = i + 1
+    end
+    puts "The highest number is: #{high}"
+
+  when "L"
+    low = hilo_arr[0]
+    i = 0
+    while i < hilo_arr.length
+      if hilo_arr[i] < low
+        low = hilo_arr[i]
+      end
+      i = i + 1
+    end
+          puts "The lowest number is: #{low}"
+
 end #end case statement
-end #end brainy
+end #end hilow
 
- brainy
+ hilow
