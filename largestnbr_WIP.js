@@ -15,3 +15,7 @@ var nbr5
 
 var biggest = 0
 
+//loop
+//compare
+
+//alert box on which number is the largest
