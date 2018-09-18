@@ -31,15 +31,15 @@ end # end for method main_menu
 
 def contact_info
   puts 'Enter first name: '
-  fname = gets.strip
+  fname = gets.strip.capitalize
   puts 'Enter last name: '
-  lname = gets.strip
+  lname = gets.strip.capitalize
   puts 'Enter email: '
   email = gets.strip
   puts 'Enter city: '
-  city = gets.strip
+  city = gets.strip.capitalize
   puts 'Enter state: '
-  state = gets.strip
+  state = gets.strip.upcase
 
   h = Hash.new { |h, k| h[k] = '' }
   #figure out how to catch blank entry?
@@ -57,15 +57,14 @@ def contact_info
 end #  method contact_info
 
 def view_list
-  # puts @contact_arr.join("\n")
-  @contacts.each do |contact|
+    @contacts.each do |contact|
     puts "First Name:  #{contact[:firstname]}"
     puts "Last Name: #{contact[:lastname]}"
     puts "Email: #{contact[:email]}"
     puts "Location: #{contact[:city]}, #{contact[:state]}"
     puts
-  end
-end
+  end # loop
+end # view list module
 
 def delete_contact
   puts
@@ -73,7 +72,7 @@ def delete_contact
   puts '--------------------------'
   view_list
   puts
-  delete_name = gets.strip
+  delete_name = gets.strip.capitalize
   @contacts.each_with_index do |d, i|
     if delete_name == d
       @contacts.delete_at i
@@ -82,45 +81,58 @@ def delete_contact
       view_list
     else
       next
-      end
+    end # if statement
   end # end loop
 end
 
 def edit_contact
+  view_list
   puts
   puts 'Which contact do you wish to edit?'
+  puts '[enter first name only]'
   puts '------------------------------------'
-  view_list
-  edit_name = gets.strip
-  @contacts.each_with_index do |e, i|
-    if e == edit_name
-      puts 'Please edit...'
-      edited = gets.strip
-      @contacts[i] = edited
-      puts "Contact edited: #{edit_name} to #{edited}"
-    else
-      next
-    end
-  end # end loop
+  edit_name = gets.strip.capitalize
+  puts edit_name #ok
+   @contacts.each do |x| 
+    if x[:firstname] == edit_name
+      puts "Which field do you want to edit?"
+      puts "(please type the exact field name)"
+      puts "-" * 40
+      puts
+      puts @contacts.map {|k| k.keys}.uniq
+      puts
+      field = gets.strip.downcase
+      puts
+      @contacts.each do |f| #not executing here
+            if f.keys[0] == field
+              puts "please edit..."
+              edited = gets.strip
+              @contacts[:firstname] = edited
+          @contacts[i] = edited
+          puts "Contact edited!"
+          view_list
+    end #if for key
+  end 
 end
+end # loop get name
+end # def module
 
 loop do
   case main_menu
+    when 1 # Viewing all contacts
+      view_list
+    when 2 # Adding a new contact
+      contact_info
+    when 3 # delete a contact
+      delete_contact
+    when 4 # edit contact
+      edit_contact
+    when 5 # Exit the program
+      exit(0)
+    else
+      puts 'Bad input, please try again!'
 
-  when 1 # Viewing all contacts
-    view_list
-  when 2 # Adding a new contact
-    contact_info
-  when 3 # delete a contact
-    delete_contact
-  when 4 # edit contact
-    edit_contact
-  when 5 # Exit the program
-    exit(0)
-  else
-    puts 'Bad input, please try again!'
-
-end # case statement end
-end # end for While
+  end # case statement end
+end #  loop
 
 # in need of error checking
